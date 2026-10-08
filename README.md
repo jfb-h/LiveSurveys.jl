@@ -76,4 +76,3 @@ Open `http://localhost:8888/mood` on a phone and
 - Results render as plain DOM or a WGLMakie figure.
 - `examples/` has two complete surveys (`HeightShoe`, `HomeLocation`) and a
   runnable `app.jl`.
-# LiveSurveys.jl
