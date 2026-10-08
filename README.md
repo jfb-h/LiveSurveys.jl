@@ -74,5 +74,8 @@ Open `http://localhost:8888/mood` on a phone and
   dropdown, radio, checkbox, Likert, and map inputs. See `src/components.jl` for
   the full list and what each one submits.
 - Results render as plain DOM or a WGLMakie figure.
+- Behind a reverse proxy, pass the public URL as `proxy_url` so that asset and
+  websocket URLs are generated correctly:
+  `serve!(survey; port = 8888, proxy_url = "https://example.org/statistik/")`.
 - `examples/` has two complete surveys (`HeightShoe`, `HomeLocation`) and a
   runnable `app.jl`.

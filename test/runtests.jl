@@ -163,7 +163,7 @@ end
     html = sprint(io -> show(io, MIME"text/html"(), form_content(survey)))
     @test occursin("scratch form", html)
     @test occursin("survey-form", html)
-    @test occursin("data-endpoint=\"/api/scratch/respond\"", html)
+    @test occursin("data-endpoint=\"api/scratch/respond\"", html)
     @test LiveSurveys.FORM_JS isa String
 
     response = form_page(survey)
@@ -425,6 +425,16 @@ end
         sleep(0.02)
     end
     @test length(to_value(sc[1])) == 3
+end
+
+@testset "proxy path handling" begin
+    @test LiveSurveys._external_path(nothing, "scratch") == "/scratch"
+    @test LiveSurveys._external_path("", "scratch") == "/scratch"
+    @test LiveSurveys._external_path(".", "scratch") == "/scratch"
+    @test LiveSurveys._external_path("https://example.org/statistik/", "scratch") ==
+          "https://example.org/statistik/scratch"
+    @test LiveSurveys._external_path("https://example.org/statistik", "scratch") ==
+          "https://example.org/statistik/scratch"
 end
 
 println("ALL TESTS PASSED")

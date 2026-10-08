@@ -229,8 +229,14 @@ Implemented in `src/form.jl`, `src/results.jl`, and `src/server.jl`:
 ```julia
 form_page(survey)          # static HTML form (calls render_form(R) once)
 results_app(survey, runtime)   # reactive Bonito App (calls render_results(R, data, count))
-serve!(survey; host, port, database)   # builds Store + SurveyRuntime, registers routes
+serve!(survey; host, port, database, proxy_url)   # builds Store + SurveyRuntime, registers routes
 ```
+
+`proxy_url` is the external URL the server is reached at when deployed behind a
+reverse proxy (e.g. `https://example.org/statistik/`). It is forwarded to
+Bonito's `Server` so asset and websocket URLs are prefixed correctly, and used
+for the root redirect. The form's `fetch` endpoint is proxy-relative, so it
+works both at the site root and under a path prefix.
 
 `serve!` registers four routes:
 
