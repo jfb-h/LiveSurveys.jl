@@ -113,7 +113,7 @@ function form_content(survey::Survey{R}) where R
     attributes = Dict{Symbol,Any}(
         :id => "survey-form",
         :class => "form",
-        Symbol("data-endpoint") => "/api/$(survey.slug)/respond",
+        Symbol("data-endpoint") => "api/$(survey.slug)/respond",
     )
     return DOM.form(
         render_form(R),
