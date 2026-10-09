@@ -3,8 +3,11 @@ using LiveSurveys
 include("HeightShoe.jl")
 using .HeightShoe
 
+include("Datentypen.jl")
+using .SurveyDataTypes
+
 survey = Survey(
-    HeightShoe;
+    SurveyDataTypes;
     slug = "height-shoe",
     title = "Statistics survey",
     subtitle = "Tell us your height and shoe size.",
