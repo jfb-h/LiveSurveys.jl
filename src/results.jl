@@ -11,7 +11,7 @@ function results_app(survey::Survey{R}, runtime::SurveyRuntime{R}) where R
             render_results(R, data, count),
         ; style=Styles(
             "font-family" => "system-ui, sans-serif",
-            "max-width" => "820px",
+            "width" => "fit-content",
             "margin" => "0 auto",
             "padding" => "1rem",
         ))

@@ -8,7 +8,7 @@ using .SurveyDataTypes
 
 survey = Survey(
     SurveyDataTypes;
-    slug = "height-shoe",
+    slug = "datentypen",
     title = "Statistics survey",
     subtitle = "Tell us your height and shoe size.",
 )
