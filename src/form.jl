@@ -1,40 +1,54 @@
 const FORM_CSS = raw"""
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body { background: #f1f5f9; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-       margin: 0; display: flex; justify-content: center; padding: 2rem 1rem; }
-.wrap { max-width: 420px; width: 100%; }
-h1   { font-size: 1.5rem; color: #0f172a; margin: 0 0 0.25rem; }
+       margin: 0; display: flex; justify-content: center; -webkit-tap-highlight-color: transparent;
+       padding: 1.5rem max(1rem, env(safe-area-inset-left));
+       padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+.wrap { max-width: 560px; width: 100%; }
+h1   { font-size: clamp(1.35rem, 5vw, 1.6rem); color: #0f172a; margin: 0 0 0.25rem; }
 .subtitle { color: #475569; margin: 0 0 1.25rem; line-height: 1.5; }
 .field { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
          padding: 1.25rem; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
          margin-bottom: 1rem; }
 .label { display: block; font-weight: 600; color: #0f172a; margin-bottom: 0.35rem; }
-.input { width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; font-size: 1rem;
+button, input, select, textarea { font-family: inherit; }
+.input { width: 100%; padding: 0.6rem 0.75rem; font-size: 1rem; min-height: 44px;
          border: 1px solid #cbd5e1; border-radius: 8px; }
 .input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
 .hint { color: #64748b; font-size: 0.85rem; margin-top: 0.3rem; }
 .choices { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.45rem 0 0.1rem; }
-.choice { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: #0f172a; cursor: pointer; }
-.choice input[type="radio"], .choice input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: #3b82f6; flex: none; }
+.choice { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 1rem;
+          color: #0f172a; cursor: pointer; touch-action: manipulation; }
+.choice input[type="radio"], .choice input[type="checkbox"] { width: 1.35rem; height: 1.35rem; accent-color: #3b82f6; flex: none; }
 .scale-row { display: flex; gap: 0.4rem; margin: 0.45rem 0 0.1rem; }
-.scale-opt { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; font-size: 0.85rem; color: #475569; cursor: pointer; }
-.scale-opt input { width: 1.2rem; height: 1.2rem; accent-color: #3b82f6; }
+.scale-opt { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center;
+             gap: 0.2rem; font-size: 0.85rem; color: #475569; cursor: pointer; touch-action: manipulation; }
+.scale-opt input { width: 1.35rem; height: 1.35rem; accent-color: #3b82f6; }
 .scale-ends { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.25rem; }
 select.input, textarea.input { height: auto; }
 textarea.input { resize: vertical; }
 .map-picker { height: 320px; border: 1px solid #cbd5e1; border-radius: 8px; background: #e2e8f0; }
-.map-actions { display: flex; gap: 0.5rem; margin-top: 0.45rem; }
-.map-btn { padding: 0.35rem 0.8rem; font-size: 0.9rem; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 8px; cursor: pointer; color: #0f172a; }
+.map-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.45rem; }
+.map-btn { padding: 0.5rem 1rem; min-height: 44px; font-size: 0.95rem; border: 1px solid #cbd5e1;
+           background: #f8fafc; border-radius: 8px; cursor: pointer; color: #0f172a; touch-action: manipulation; }
 .map-btn:hover { background: #e2e8f0; }
 .map-btn:disabled { opacity: 0.6; cursor: default; }
 .map-readout { margin-top: 0.35rem; font-size: 0.9rem; color: #475569; }
-.submit { width: 100%; margin-top: 0.5rem; padding: 0.7rem; font-size: 1.05rem; font-weight: 600;
-          color: #ffffff; background: #3b82f6; border: none; border-radius: 8px; cursor: pointer; }
+.submit { width: 100%; margin-top: 0.5rem; padding: 0.8rem; min-height: 48px; font-size: 1.05rem;
+          font-weight: 600; color: #ffffff; background: #3b82f6; border: none; border-radius: 8px;
+          cursor: pointer; touch-action: manipulation; }
 .submit:hover { background: #2563eb; }
 .submit:disabled { opacity: 0.6; cursor: default; }
 .status { margin-top: 1rem; padding: 0.6rem 0.75rem; border-radius: 8px; display: none;
           color: #0f172a; background: #e2e8f0; }
 .status.ok { display: block; color: #166534; background: #dcfce7; }
 .status.error { display: block; color: #991b1b; background: #fee2e2; }
+@media (max-width: 480px) {
+    body { padding: 1rem max(0.75rem, env(safe-area-inset-left));
+           padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+    .field { padding: 1rem; border-radius: 10px; }
+}
 """
 
 const FORM_JS = raw"""
@@ -112,6 +126,8 @@ function html_response(title, content)
     page = DOM.html(
         DOM.head(
             DOM.meta(; charset="utf-8"),
+            DOM.meta(; name="viewport", content="width=device-width, initial-scale=1"),
+            DOM.meta(; name="theme-color", content="#f1f5f9"),
             DOM.title(title),
             DOM.style(FORM_CSS),
         ),

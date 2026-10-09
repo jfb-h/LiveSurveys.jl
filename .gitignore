@@ -1,1 +1,4 @@
 .opencode
+Manifest.toml
+*.duckdb
+*.duckdb.wal

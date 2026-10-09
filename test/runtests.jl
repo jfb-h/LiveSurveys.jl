@@ -171,6 +171,7 @@ end
     @test response.status == 200
     @test occursin("<!doctype html>", page)
     @test occursin("<title>Scratch</title>", page)
+    @test occursin("name=\"viewport\"", page)
     @test occursin("scratch sub", page)
     @test occursin("submit-status", page)
     close(state)
