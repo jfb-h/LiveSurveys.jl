@@ -17,8 +17,8 @@ button, input, select, textarea { font-family: inherit; }
          border: 1px solid #cbd5e1; border-radius: 8px; }
 .input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
 .hint { color: #64748b; font-size: 0.85rem; margin-top: 0.3rem; }
-.choices { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.45rem 0 0.1rem; }
-.choice { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 1rem;
+.choices { display: flex; flex-direction: column; gap: 0.3rem; margin: 0.45rem 0 0.1rem; }
+.choice { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem;
           color: #0f172a; cursor: pointer; touch-action: manipulation; }
 .choice input[type="radio"], .choice input[type="checkbox"] { width: 1.35rem; height: 1.35rem; accent-color: #3b82f6; flex: none; }
 .scale-row { display: flex; gap: 0.4rem; margin: 0.45rem 0 0.1rem; }
