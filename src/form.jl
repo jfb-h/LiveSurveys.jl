@@ -92,10 +92,8 @@ const FORM_JS = raw"""
             let result = null;
             try { result = await res.json(); } catch (_) { result = null; }
             if (res.ok) {
-                const n = (result && result.count) || 0;
-                setStatus("Thank you! Your answer was recorded." +
-                          (n ? " (" + n + " submissions so far)" : ""), "ok");
-                form.reset();
+                setStatus("Thank you! Your answer was recorded.", "ok");
+                form.hidden = true;
             } else {
                 setStatus("Could not save your answer: " +
                           ((result && result.message) ? result.message : "invalid response"), "error");
